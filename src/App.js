@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import React, { useState } from "react";
+import GitHubUser from "./components/GitHubUser";
+import SearchForm from "./components/SearchForm";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+export default function App() {
+  const [inputValue, setInputValue] = useState('');
+    function handleInputChange(event) {
+        event.preventDefault();
+        const inputString = document.querySelector('.input-field').value;
+        setInputValue(inputString);
+        document.querySelector('.input-field').value = '';
+    }
+  return (
+      <>
+          <h1 style={{ textAlign: 'center' }}>Search GitHub User</h1>
+
+          <div className="input-block">
+              <SearchForm />
+              <button className="input-block__btn" onClick={handleInputChange}>
+                  Search
+              </button>
+          </div>
+        <GitHubUser login={inputValue} />
+      </>
+  )
+}
